@@ -23,13 +23,9 @@ public class Library {
 		System.out.println("어서오세요.");
 		library.signUpBook(input);
 		library.signUpBorrower(input);
-		library.searchBook(input);
-//		Book book = borrower.search(library, librarian, bookName);
-//		if(book != null && borrower.checkLoanStatus(library, librarian, book)) {
-//			//Book클레스 말고 cNumber로?
-//			borrower.borrowBook(library, librarian, book);
-//			borrower.returnBook(library, librarian, book);
-//		}
+		Book book = library.searchBook(input);
+		library.borrowBook(input, book);
+		library.returnBook(book);
 	}
 
 	public void signUpBook(Scanner input) {
@@ -90,7 +86,8 @@ public class Library {
 		cNumber += this.checkBooks(bookName, author, cNumber);
 		return cNumber;
 	}
-	public void searchBook(Scanner input) {
+	public Book searchBook(Scanner input) {
+		Book book = null;
 		System.out.println("検索する本のジャンルと名前、著者を入力してください。");
 		System.out.println("0.総記 1.哲学 2.歴史 3.社会科学 4.自然科学 5.技術 6.産業 7.芸術 8.言語 9.文学");
 		System.out.println("종류 입력(수자)");
@@ -110,6 +107,7 @@ public class Library {
 				
 			}
 		}
+		return book;
 	}
 	public boolean login(Scanner input) {
 		String ID = input.nextLine();
@@ -119,5 +117,23 @@ public class Library {
 			}
 		}
 		return false;
+	}
+	public void borrowBook(Scanner input, Book book) {
+		String signIn = input.nextLine();
+		boolean check = true;
+		for(Borrower x: this.borrowers) {
+			if(signIn.equals(x.getName()) && book.loanStatus()) {
+				book.connect(x);
+				check = false;
+				break;
+			}
+		}
+		if(check) {
+			System.out.println("error");
+		}
+	}
+	public void returnBook(Book book) {
+		book.disconnect();
+		System.out.println("처리가 완료되었습니다.");
 	}
 }
