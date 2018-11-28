@@ -7,6 +7,7 @@ public class Library {
 //	private ArrayList<Book> books = new ArrayList<Book>();
 	private ArrayList<ArrayList<Book>> books = new ArrayList<ArrayList<Book>>();
 	private ArrayList<Borrower> borrowers = new ArrayList<Borrower>();
+	private Vector<String> librarians = new Vector<String>();
 	
 	public Library(String name) {
 		this.name = name;
@@ -16,12 +17,13 @@ public class Library {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Scanner input = new Scanner(System.in);
 		Library library = new Library("SunMoonLibrary");
+		library.login(input);
 		System.out.println("어서오세요.");
-		library.signUpBook();
-		library.signUpBorrower();
-		library.searchBook();
+		library.signUpBook(input);
+		library.signUpBorrower(input);
+		library.searchBook(input);
 //		Book book = borrower.search(library, librarian, bookName);
 //		if(book != null && borrower.checkLoanStatus(library, librarian, book)) {
 //			//Book클레스 말고 cNumber로?
@@ -30,8 +32,7 @@ public class Library {
 //		}
 	}
 
-	public void signUpBook() {
-		Scanner input = new Scanner(System.in);
+	public void signUpBook(Scanner input) {
 		System.out.println("登録する本のジャンルと名前、著者を入力してください。");
 		System.out.println("0.総記 1.哲学 2.歴史 3.社会科学 4.自然科学 5.技術 6.産業 7.芸術 8.言語 9.文学");
 		System.out.println("종류 입력(수자)");
@@ -44,10 +45,8 @@ public class Library {
 		System.out.println(cNumber);
 		Book book = new Book(bookName, author, cNumber);
 		this.books.get(Integer.parseInt(book.getCNumber().substring(0, 1))).add(book);
-		input.close();
 	}
-	public void signUpBorrower() {
-		Scanner input = new Scanner(System.in);
+	public void signUpBorrower(Scanner input) {
 		System.out.println("お客様のお名前を入力してください。");
 		String borrowerName = input.nextLine();
 		boolean check = false;
@@ -63,7 +62,6 @@ public class Library {
 			Borrower b = new Borrower(borrowerName);
 			this.borrowers.add(b);
 		}
-		input.close();
 	}
 	public String checkBooks(String bookName, String author, String cNumber) {
 		String No = "00";
@@ -85,15 +83,14 @@ public class Library {
 	}
 	public String makeCNumber(String bookName, String author, String cNumber) {
 		String temp = bookName + author;
-		char[] ctemp = temp.toCharArray();
+		char[] ctemp = temp.replaceAll(" ", "").toCharArray();
 		for(char x: ctemp) {
 			cNumber += (int)(x);
 		}
 		cNumber += this.checkBooks(bookName, author, cNumber);
 		return cNumber;
 	}
-	public void searchBook() {
-		Scanner input = new Scanner(System.in);
+	public void searchBook(Scanner input) {
 		System.out.println("検索する本のジャンルと名前、著者を入力してください。");
 		System.out.println("0.総記 1.哲学 2.歴史 3.社会科学 4.自然科学 5.技術 6.産業 7.芸術 8.言語 9.文学");
 		System.out.println("종류 입력(수자)");
@@ -113,6 +110,14 @@ public class Library {
 				
 			}
 		}
-		input.close();
+	}
+	public boolean login(Scanner input) {
+		String ID = input.nextLine();
+		for(String x: this.librarians) {
+			if(x.equals(ID)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
