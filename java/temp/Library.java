@@ -23,7 +23,8 @@ public class Library {
 		System.out.println("어서오세요.");
 		library.signUpBook(input);
 		library.signUpBorrower(input);
-		Book book = library.searchBook(input);
+//		Book book = library.searchBook(input);
+		Book book = library.books.get(8).get(0);
 		library.borrowBook(input, book);
 		library.returnBook(book);
 	}
@@ -86,30 +87,31 @@ public class Library {
 		cNumber += this.checkBooks(bookName, author, cNumber);
 		return cNumber;
 	}
-	public Book searchBook(Scanner input) {
-		Book book = null;
-		System.out.println("検索する本のジャンルと名前、著者を入力してください。");
-		System.out.println("0.総記 1.哲学 2.歴史 3.社会科学 4.自然科学 5.技術 6.産業 7.芸術 8.言語 9.文学");
-		System.out.println("종류 입력(수자)");
-		String cNumber = input.nextLine();
-		System.out.println("책 제목 입력");
-		String bookName = input.nextLine();
-		System.out.println("책 저자 입력");
-		String author = input.nextLine();
-		if(cNumber.equals("")) {
-			for(ArrayList<Book> x: this.books) {
-				for(Book y: x) {
-					
-				}
-			}
-		}else {
-			for(Book b: this.books.get(Integer.parseInt(cNumber))) {
-				
-			}
-		}
-		return book;
-	}
+//	public Book searchBook(Scanner input) {
+//		Book book = null;
+//		System.out.println("検索する本のジャンルと名前、著者を入力してください。");
+//		System.out.println("0.総記 1.哲学 2.歴史 3.社会科学 4.自然科学 5.技術 6.産業 7.芸術 8.言語 9.文学");
+//		System.out.println("종류 입력(수자)");
+//		String cNumber = input.nextLine();
+//		System.out.println("책 제목 입력");
+//		String bookName = input.nextLine();
+//		System.out.println("책 저자 입력");
+//		String author = input.nextLine();
+//		if(cNumber.equals("")) {
+//			for(ArrayList<Book> x: this.books) {
+//				for(Book y: x) {
+//					
+//				}
+//			}
+//		}else {
+//			for(Book b: this.books.get(Integer.parseInt(cNumber))) {
+//				
+//			}
+//		}
+//		return book;
+//	}
 	public boolean login(Scanner input) {
+		System.out.println("ID를 입력해주세요.");
 		String ID = input.nextLine();
 		for(String x: this.librarians) {
 			if(x.equals(ID)) {
@@ -119,11 +121,13 @@ public class Library {
 		return false;
 	}
 	public void borrowBook(Scanner input, Book book) {
+		System.out.println("お客様のお名前を入力してください。");
 		String signIn = input.nextLine();
 		boolean check = true;
 		for(Borrower x: this.borrowers) {
 			if(signIn.equals(x.getName()) && book.loanStatus()) {
 				book.connect(x);
+				System.out.println("처리가 완료되었습니다.");
 				check = false;
 				break;
 			}
