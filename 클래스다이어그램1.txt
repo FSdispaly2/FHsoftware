@@ -1,5 +1,0 @@
-1.Library class에 Book의 이름을 books를 바꿈
-2.Libray class에 librarians, borrwers 속성을 추가함
-3.borrower class에 bookSeach, relumBook,borrowBook,checkLoanStatus 동작을 삭제
-4.borrower class에 getName동작을 추가함
-5.Book class에 attachBorrower,derachBorrower동작을 삭제함
