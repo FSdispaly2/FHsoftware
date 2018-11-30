@@ -5,14 +5,15 @@ public class Library {
 
 	private String name;
 //	private ArrayList<Book> books = new ArrayList<Book>();
-	private ArrayList<ArrayList<Book>> books = new ArrayList<ArrayList<Book>>();
-	private ArrayList<Borrower> borrowers = new ArrayList<Borrower>();
-	private Vector<String> librarians = new Vector<String>();
+	private HashSet<HashSet<Book>> books = new HashSet<HashSet<Book>>();
+	private HashSet<Borrower> borrowers = new HashSet<Borrower>();
+	private HashSet<String> librarians = new HashSet<String>();
+	private Iterator<Object> it;
 	
 	public Library(String name) {
 		this.name = name;
 		for(int i = 0; i < 9; i++) {
-			this.books.add(new ArrayList<Book>());
+			this.books.add(new HashSet<Book>());
 		}
 	}
 	
@@ -24,7 +25,8 @@ public class Library {
 		library.signUpBook(input);
 		library.signUpBorrower(input);
 //		Book book = library.searchBook(input);
-		Book book = library.books.get(8).get(0);
+//		library.it = library.books.iterator().next();
+//		Book book = library.it.;
 		library.borrowBook(input, book);
 		library.returnBook(book);
 	}
