@@ -1,0 +1,10 @@
+﻿		System.out.println("등록하시는 책의 분류번호,제목과 저자를 입력해주세요.");
+		System.out.println("0.기타 1.문학 2.역사 3.사회과학 4.자연과학 5.기술 6.산업 7.예술 8.언어 9.문학");
+		System.out.println("책의 종류를 입력해주세요.(숫자)");
+		String cNumber = input.nextLine();
+		System.out.println("책의 제목을 입력해주세요.");
+		String bookName = input.nextLine();
+		System.out.println("책의 저자 입력.");
+
+
+		System.out.println("어서오세요 " + library.getName() + "입니다.");
