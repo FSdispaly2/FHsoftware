@@ -4,7 +4,7 @@ import java.util.*;
 public class Library {
 
 	private String name;
-	private HashSet<Book> books = new HashSet<Book>();
+	private TreeSet<Book> books = new TreeSet<Book>(new MyComparator ());
 	private HashSet<Borrower> borrowers = new HashSet<Borrower>();
 	private HashSet<String> librarians = new HashSet<String>();
 	private Iterator<Book> iBook;
@@ -20,6 +20,7 @@ public class Library {
 		Library library = new Library("SunMoonLibrary");
 		while(true) {
 			System.out.println("�뼱�꽌�삤�꽭�슂 " + library.getName() + "�엯�땲�떎.");
+			library.librarians.add("unknow");
 			int ID = library.login(input);
 			boolean systemCall = false;
 			switch(ID) {
@@ -61,7 +62,8 @@ public class Library {
 		System.out.println("�벑濡앺븯�떆�뒗 梨낆쓽 遺꾨쪟踰덊샇,�젣紐⑷낵 ���옄瑜� �엯�젰�빐二쇱꽭�슂.");
 		System.out.println("0.湲고� 1.臾명븰 2.�뿭�궗 3.�궗�쉶怨쇳븰 4.�옄�뿰怨쇳븰 5.湲곗닠 6.�궛�뾽 7.�삁�닠 8.�뼵�뼱 9.臾명븰");
 		System.out.println("梨낆쓽 醫낅쪟瑜� �엯�젰�빐二쇱꽭�슂.(�닽�옄)");
-		String cNumber = input.nextLine();
+		int cNumber = input.nextInt();
+		input.nextLine();
 		System.out.println("梨낆쓽 �젣紐⑹쓣 �엯�젰�빐二쇱꽭�슂.");
 		String bookName = input.nextLine();
 		System.out.println("梨낆쓽 ���옄 �엯�젰.");
@@ -90,31 +92,24 @@ public class Library {
 			this.borrowers.add(b);
 		}
 	}
-	public String checkBooks(String cNumber) {
-		String No = "00";
+	public int checkBooks(int cNumber) {
 		this.iBook = this.books.iterator();
 		int count = 0;
 		while(this.iBook.hasNext()) {
 			Book b = (Book)this.iBook.next();
-			if(cNumber.equals(b.getCNumber().substring(0, cNumber.length()))) {
+			if(b.getCNumber() == cNumber) {
 				count++;
 			}
 		}
-		if(count == 0) {
-			return No;
-		} else if(count / 10 == 0) {
-			No = "0" + count;
-		} else {
-			No = "" + count;
-		}
-		return No;
+		return count;
 	}
-	public String makeCNumber(String bookName, String author, String cNumber) {
+	public int makeCNumber(String bookName, String author, int cNumber) {
 		String temp = bookName + author;
-		char[] ctemp = temp.replaceAll(" ", "").toCharArray();
-		for(char x: ctemp) {
-			cNumber += (int)(x);
-		}
+		cNumber = cNumber * 10000000;
+		cNumber += temp.replaceAll(" ", "").length() * 100;
+		cNumber += (int)bookName.charAt(0) * 10000;
+		System.out.println(bookName.charAt(0));
+		System.out.println((int)bookName.charAt(0));
 		cNumber += this.checkBooks(cNumber);
 		return cNumber;
 	}
