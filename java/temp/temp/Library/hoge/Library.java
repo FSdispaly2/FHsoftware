@@ -146,9 +146,9 @@ public class Library {
 				return 0;
 			}
 		}
-		if(ID == "gest") {
+		if(ID.equals("gest")) {
 			return 1;
-		}else if(ID == "exit"){
+		}else if(ID.equals("exit")){
 			return 2;
 		}else {
 			return 3;
