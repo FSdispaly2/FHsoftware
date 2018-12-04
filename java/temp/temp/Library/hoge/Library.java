@@ -22,23 +22,48 @@ public class Library {
 			System.out.println("�뼱�꽌�삤�꽭�슂 " + library.getName() + "�엯�땲�떎.");
 			library.librarians.add("unknow");
 			int ID = library.login(input);
+			int choices;
+			boolean exit;
 			boolean systemCall = false;
+			Book book = null;
 			switch(ID) {
 			case 0:
-//				while(true) {
-//					int 
-				library.signUpBook(input);
-				library.signUpBook(input);
-				library.signUpBook(input);
-				library.signUpBorrower(input);
-				library.signUpBorrower(input);
-				library.signUpBorrower(input);
-//				}
+				while(true) {
+					exit = false;
+					choices = input.nextInt();
+					input.nextLine();
+					switch(choices) {
+					case 0:
+					library.signUpBook(input);
+					case 1:
+					library.signUpBorrower(input);
+					case 2:
+						exit = true;
+						break;
+					}
+					if(exit) {
+						break;
+					}
+				}
 				break;
 			case 1:
-//				Book book = library.searchBook(input);
-//				library.borrowBook(input, book);
-//				library.returnBook(book);
+				while(true) {
+					exit = false;
+					choices = input.nextInt();
+					input.nextLine();
+					switch(choices) {
+					case 0:
+//					library.borrowBook(input, book);
+					case 1:
+//					library.signUpBorrower(input);
+					case 2:
+						exit = true;
+						break;
+					}
+					if(exit) {
+						break;
+					}
+				}
 				break;
 			case 2:
 				System.out.println("System...");
