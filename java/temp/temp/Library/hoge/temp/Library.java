@@ -32,6 +32,8 @@ public class Library {
 				while(true) {
 					exit = false;
 					choices = input.nextInt();
+					System.out.println("원하시는 서비스를 선택해주세요.");
+					System.out.println("0: 책 등록   1: 이용자 등록   2: 책 대출   3: 책 반납   4: 대출 중인 책 전시   5: 대출 가능한 책 전시  6: 로그아웃");
 					input.nextLine();
 					switch(choices) {
 					case 0:
@@ -43,6 +45,12 @@ public class Library {
 					case 2:
 						exit = true;
 						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						break;
 					}
 					if(exit) {
 						break;
@@ -50,28 +58,14 @@ public class Library {
 				}
 				break;
 			case 1:
-				while(true) {
-					exit = false;
-					choices = input.nextInt();
-					input.nextLine();
-					switch(choices) {
-					case 0:
-						library.borrowBook(input, book);
+				while(true){
+					library.searchBook(input);
+					System.out.println("계속 검색하시겠습니까? (Yes/No : 대소문자를 구분합니다.)");
+					String continueSearch = input.nextLine();
+					if(continueSearch.equals("No")){
 						break;
-					case 1:
-						library.searchBook(input);
-						break;
-					case 2:
-						cNumber = input.nextInt();
-						input.nextLine();
-						book = library.choiceBook(cNumber);
-						break;
-					case 3:
-						exit = true;
-						break;
-					}
-					if(exit) {
-						break;
+					}else if(continueSearch.equals("Yes")){
+						continue;
 					}
 				}
 				break;
