@@ -34,6 +34,8 @@ public class Library {
 			book = new Book(bookName, author, cNumber);
 			this.books.add(book);
 		}
+		Borrower borrower = new Borrower("홍길동");
+		this.borrowers.add(borrower);
 	}
 
 	public static void main(String[] args) {
@@ -132,7 +134,7 @@ public class Library {
 		this.iBorrower = this.borrowers.iterator();
 		boolean check = false;
 		while (this.iBorrower.hasNext()) {
-			Borrower x = (Borrower) this.iBorrower.next();
+			Borrower x = this.iBorrower.next();
 			if (x.getName().equals(borrowerName)) {
 				check = true;
 				break;
@@ -151,7 +153,7 @@ public class Library {
 		this.iBook = this.books.iterator();
 		int count = 0;
 		while (this.iBook.hasNext()) {
-			Book b = (Book) this.iBook.next();
+			Book b = this.iBook.next();
 			if (b.getCNumber() == cNumber) {
 				count++;
 			}
@@ -198,7 +200,7 @@ public class Library {
 		String ID = input.nextLine();
 		this.iLibrarian = librarians.iterator();
 		while (this.iLibrarian.hasNext()) {
-			String x = (String) this.iLibrarian.next();
+			String x = this.iLibrarian.next();
 			if (x.equals(ID)) {
 				System.out.println(ID + "(관리자)님, 환영합니다.");
 				return 0;
@@ -218,11 +220,12 @@ public class Library {
 
 	public void borrowBook(Scanner input) {
 		System.out.println("대출하시고자 하는 이용자의 이름을 입력해주세요.");
+		boolean check = true;
 		String borrowerName = input.nextLine();
 		Book book;
 		this.iBorrower = this.borrowers.iterator();
 		while (this.iBorrower.hasNext()) {
-			Borrower x = (Borrower) this.iBorrower.next();
+			Borrower x = this.iBorrower.next();
 			if (x.getName().equals(borrowerName)) {
 				System.out.println("대출할 책의 고유번호를 입력해주세요.");
 				int cNumber = input.nextInt();
@@ -232,37 +235,46 @@ public class Library {
 					book = this.iBook.next();
 					if (book.getCNumber() == cNumber) {
 						book.connect(x);
+						check = false;
 						System.out.println("대출이 성공석으로 완료되었습니다.");
 						break;
 					}
 				}
 			}
 		}
-		System.out.println("대출에 실패하였습니다. 다시 시도해주세요.");
+		if(check) {
+			System.out.println("대출에 실패하였습니다. 다시 시도해주세요.");
+		}
 	}
 
 	public void returnBook(Scanner input) {
 		Book book = null;
+		boolean check = true;
+		System.out.println("반납할 책의 고유번호를 입력해주세요.");
 		int cNumber = input.nextInt();
 		input.nextLine();
-		this.iBorrower = this.borrowers.iterator();
-		while (this.iBorrower.hasNext()) {
+		this.iBook = books.iterator();
+		while (this.iBook.hasNext()) {
 			book = this.iBook.next();
 			if (book.getCNumber() == cNumber) {
 				book.disconnect();
 				System.out.println("반납이 완료되었습니다.");
+				check = false;
+				break;
 			}
 		}
-		System.out.println("반납에 실패하였습니다. 다시 시도해주세요.");
+		if(check) {
+			System.out.println("반납에 실패하였습니다. 다시 시도해주세요.");
+		}
 	}
 
 	public void displayBookOnLone() { // 대출 중인 책 전시
 		Book book;
 		this.iBook = books.iterator();
-		while (!this.iBook.hasNext()) {
+		while (this.iBook.hasNext()) {
 			book = this.iBook.next();
-			if (book.loanStatus()) {
-				System.out.println(book.search() + "\n" + book.getCNumber());
+			if (!book.loanStatus()) {
+				System.out.println("\n" + book.search() + "\n" + book.getCNumber());
 			}
 		}
 	}
@@ -273,7 +285,7 @@ public class Library {
 		while (this.iBook.hasNext()) {
 			book = this.iBook.next();
 			if (book.loanStatus()) {
-				System.out.println(book.search() + "\n" + book.getCNumber());
+				System.out.println("\n" + book.search() + "\n" + book.getCNumber());
 			}
 		}
 	}
