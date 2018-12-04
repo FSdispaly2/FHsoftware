@@ -7,9 +7,9 @@ public class Library {
 	private TreeSet<Book> books = new TreeSet<Book>(new MyComparator ());
 	private HashSet<Borrower> borrowers = new HashSet<Borrower>();
 	private HashSet<String> librarians = new HashSet<String>();
-	private Iterator<Book> iBook = books.iterator();
-	private Iterator<Borrower> iBorrower = borrowers.iterator();
-	private Iterator<String> iLibrarian = librarians.iterator();
+	private Iterator<Book> iBook;
+	private Iterator<Borrower> iBorrower;
+	private Iterator<String> iLibrarian;
 	
 	public Library(String name) {
 		this.name = name; 
@@ -18,10 +18,9 @@ public class Library {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		Library library = new Library("SunMoonLibrary");
+		library.librarians.add("unknow");
 		while(true) {
-			System.out.println((int)input.nextLine().charAt(0));
 			System.out.println("�뼱�꽌�삤�꽭�슂 " + library.getName() + "�엯�땲�떎.");
-			library.librarians.add("unknow");
 			int ID = library.login(input);
 			int choices;
 			int cNumber;
@@ -153,6 +152,7 @@ public class Library {
 		Book book;
 		System.out.println("type the number tytle or author");
 		String temp = input.nextLine();
+		this.iBook = books.iterator();
 		if(temp.length() == 1 && (int)temp.charAt(0) > 58){
 			while(this.iBook.hasNext()) {
 				book = this.iBook.next();
@@ -169,6 +169,7 @@ public class Library {
 	}
 	public Book choiceBook(int cNumber) {
 		Book book;
+		this.iBook = books.iterator();
 		while(this.iBook.hasNext()) {
 			book = this.iBook.next();
 			if(book.getCNumber() == cNumber) {
@@ -181,6 +182,7 @@ public class Library {
 	public int login(Scanner input) {
 		System.out.println("ID瑜� �엯�젰�빐二쇱꽭�슂.");
 		String ID = input.nextLine();
+		this.iLibrarian = librarians.iterator();
 		while(this.iLibrarian.hasNext()) {
 			String x = (String)this.iLibrarian.next();
 			if(x.equals(ID)) {
@@ -200,6 +202,7 @@ public class Library {
 		System.out.println("��異쒖옄�쓽 �씠由꾩쓣  �엯�젰�빐二쇱꽭�슂 �엳�븯");
 		String borrowerName = input.nextLine();
 		boolean check = true;
+		this.iBorrower = this.borrowers.iterator();
 		while(this.iBorrower.hasNext()) {
 			Borrower x = (Borrower)this.iBorrower.next();
 			if(x.getName().equals(borrowerName) && book.loanStatus()) {
