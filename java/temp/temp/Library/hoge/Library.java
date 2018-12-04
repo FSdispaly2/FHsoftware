@@ -7,9 +7,9 @@ public class Library {
 	private TreeSet<Book> books = new TreeSet<Book>(new MyComparator ());
 	private HashSet<Borrower> borrowers = new HashSet<Borrower>();
 	private HashSet<String> librarians = new HashSet<String>();
-	private Iterator<Book> iBook;
-	private Iterator<Borrower> iBorrower;
-	private Iterator<String> iLibrarian;
+	private Iterator<Book> iBook = books.iterator();
+	private Iterator<Borrower> iBorrower = borrowers.iterator();
+	private Iterator<String> iLibrarian = librarians.iterator();
 	
 	public Library(String name) {
 		this.name = name; 
@@ -19,10 +19,12 @@ public class Library {
 		Scanner input = new Scanner(System.in);
 		Library library = new Library("SunMoonLibrary");
 		while(true) {
+			System.out.println((int)input.nextLine().charAt(0));
 			System.out.println("�뼱�꽌�삤�꽭�슂 " + library.getName() + "�엯�땲�떎.");
 			library.librarians.add("unknow");
 			int ID = library.login(input);
 			int choices;
+			int cNumber;
 			boolean exit;
 			boolean systemCall = false;
 			Book book = null;
@@ -34,9 +36,11 @@ public class Library {
 					input.nextLine();
 					switch(choices) {
 					case 0:
-					library.signUpBook(input);
+						library.signUpBook(input);
+						break;
 					case 1:
-					library.signUpBorrower(input);
+						library.signUpBorrower(input);
+						break;
 					case 2:
 						exit = true;
 						break;
@@ -53,10 +57,17 @@ public class Library {
 					input.nextLine();
 					switch(choices) {
 					case 0:
-//					library.borrowBook(input, book);
+						library.borrowBook(input, book);
+						break;
 					case 1:
-//					library.signUpBorrower(input);
+						library.searchBook(input);
+						break;
 					case 2:
+						cNumber = input.nextInt();
+						input.nextLine();
+						book = library.choiceBook(cNumber);
+						break;
+					case 3:
 						exit = true;
 						break;
 					}
@@ -138,32 +149,38 @@ public class Library {
 		cNumber += this.checkBooks(cNumber);
 		return cNumber;
 	}
-//		Book book = null;
-//		System.out.println("癲꾩뮁�눊占쎄굉占쎄데占쎌몟占쎄쿁占쎄땋占쎄뭇占쎄틡占쎄틓占쎄쾹占쎈┼占쎈렭占쎄낟紐�占쎈겧援�占쎈��占쎈뮓占쎄괼占쎄쾷占쎄괜占쎄굵占쎄괵占쎄콢占쏙옙");
-//		System.out.println("0.歷띕ㅊ怡� 1.占쎈쾼�띰옙 2.癲녿떣琉� 3.埇쎌뼂�룒�뇖臾덌옙占� 4.占쎈닅占쎄쉥�뇖臾덌옙占� 5.占쏙옙�깗占� 6.占쎈덫�뮫占� 7.占쎈뱜�깗占� 8.庸뉛옙亦껓옙 9.占쎈뻤�띰옙");
-//		System.out.println("�넫�굝履� 占쎌뿯占쎌젾(占쎈땾占쎌쁽)");
-//		String cNumber = input.nextLine();
-//		System.out.println("筌�占� 占쎌젫筌륅옙 占쎌뿯占쎌젾");
-//		String bookName = input.nextLine();
-//		System.out.println("筌�占� 占쏙옙占쎌쁽 占쎌뿯占쎌젾");
-//		String author = input.nextLine();
-//		if(cNumber.equals("")) {
-//			for(ArrayList<Book> x: this.books) {
-//				for(Book y: x) {
-//					
-//				}
-//			}
-//		}else {
-//			for(Book b: this.books.get(Integer.parseInt(cNumber))) {
-//				
-//			}
-//		}
-//		return book;
-//	}
+	public void searchBook(Scanner input) {
+		Book book;
+		System.out.println("type the number tytle or author");
+		String temp = input.nextLine();
+		if(temp.length() == 1 && (int)temp.charAt(0) > 58){
+			while(this.iBook.hasNext()) {
+				book = this.iBook.next();
+				if(book.getCNumber()/10000000 == (int)temp.charAt(0) - 48) {
+					System.out.println(book.search() + "\n" + book.getCNumber());
+				}else if(book.search().split("\n")[0].equals(temp)) {
+					System.out.println(book.search() + "\n" + book.getCNumber());
+				}else if(book.search().split("\n")[1].equals(temp)) {
+					System.out.println(book.search() + "\n" + book.getCNumber());
+				}
+			}
+			System.out.println("error");
+		}
+	}
+	public Book choiceBook(int cNumber) {
+		Book book;
+		while(this.iBook.hasNext()) {
+			book = this.iBook.next();
+			if(book.getCNumber() == cNumber) {
+				return book;
+			}
+		}
+		book = null;
+		return book;
+	}
 	public int login(Scanner input) {
 		System.out.println("ID瑜� �엯�젰�빐二쇱꽭�슂.");
 		String ID = input.nextLine();
-		this.iLibrarian = this.librarians.iterator();
 		while(this.iLibrarian.hasNext()) {
 			String x = (String)this.iLibrarian.next();
 			if(x.equals(ID)) {
@@ -182,7 +199,6 @@ public class Library {
 	public void borrowBook(Scanner input, Book book) {
 		System.out.println("��異쒖옄�쓽 �씠由꾩쓣  �엯�젰�빐二쇱꽭�슂 �엳�븯");
 		String borrowerName = input.nextLine();
-		this.iBorrower = this.borrowers.iterator();
 		boolean check = true;
 		while(this.iBorrower.hasNext()) {
 			Borrower x = (Borrower)this.iBorrower.next();
