@@ -34,7 +34,11 @@ public class Library {
 			book = new Book(bookName, author, cNumber);
 			this.books.add(book);
 		}
+<<<<<<< HEAD
 		Borrower borrower = new Borrower("HongGilDong");
+=======
+		Borrower borrower = new Borrower("홍길동");
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 		this.borrowers.add(borrower);
 	}
 
@@ -133,7 +137,7 @@ public class Library {
 		this.iBorrower = this.borrowers.iterator();
 		boolean check = false;
 		while (this.iBorrower.hasNext()) {
-			Borrower x = (Borrower) this.iBorrower.next();
+			Borrower x = this.iBorrower.next();
 			if (x.getName().equals(borrowerName)) {
 				check = true;
 				break;
@@ -152,7 +156,7 @@ public class Library {
 		this.iBook = this.books.iterator();
 		int count = 0;
 		while (this.iBook.hasNext()) {
-			Book b = (Book) this.iBook.next();
+			Book b = this.iBook.next();
 			if (b.getCNumber() == cNumber) {
 				count++;
 			}
@@ -199,7 +203,7 @@ public class Library {
 		String ID = input.nextLine();
 		this.iLibrarian = librarians.iterator();
 		while (this.iLibrarian.hasNext()) {
-			String x = (String) this.iLibrarian.next();
+			String x = this.iLibrarian.next();
 			if (x.equals(ID)) {
 				System.out.println(ID + "Ms. "+ ID +"\n" + " Welcome, sir.");
 				return 0;
@@ -218,12 +222,17 @@ public class Library {
 	}
 
 	public void borrowBook(Scanner input) {
+<<<<<<< HEAD
 		System.out.println("Please enter the name of the borrower you wish to borrow.");
+=======
+		System.out.println("대출하시고자 하는 이용자의 이름을 입력해주세요.");
+		boolean check = true;
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 		String borrowerName = input.nextLine();
 		Book book;
 		this.iBorrower = this.borrowers.iterator();
 		while (this.iBorrower.hasNext()) {
-			Borrower x = (Borrower) this.iBorrower.next();
+			Borrower x = this.iBorrower.next();
 			if (x.getName().equals(borrowerName)) {
 				System.out.println("Please enter the category number of the book you want to check out.");
 				int cNumber = input.nextInt();
@@ -233,19 +242,34 @@ public class Library {
 					book = this.iBook.next();
 					if (book.getCNumber() == cNumber) {
 						book.connect(x);
+<<<<<<< HEAD
 						System.out.println("The loan is successful.");
+=======
+						check = false;
+						System.out.println("대출이 성공석으로 완료되었습니다.");
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 						break;
 					}
 				}
 			}
 		}
+<<<<<<< HEAD
 		System.out.println("Failed to check out. Please try again");
+=======
+		if(check) {
+			System.out.println("대출에 실패하였습니다. 다시 시도해주세요.");
+		}
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 	}
 
 	public void returnBook(Scanner input) {
 		Book book = null;
 		boolean check = true;
+<<<<<<< HEAD
 		System.out.println("Please enter the category number of the book to return.");
+=======
+		System.out.println("반납할 책의 고유번호를 입력해주세요.");
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 		int cNumber = input.nextInt();
 		input.nextLine();
 		this.iBook = books.iterator();
@@ -253,13 +277,21 @@ public class Library {
 			book = this.iBook.next();
 			if (book.getCNumber() == cNumber) {
 				book.disconnect();
+<<<<<<< HEAD
 				System.out.println("Return completed.");
+=======
+				System.out.println("반납이 완료되었습니다.");
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 				check = false;
 				break;
 			}
 		}
 		if(check) {
+<<<<<<< HEAD
 			System.out.println("Failed to return. Please try again.");
+=======
+			System.out.println("반납에 실패하였습니다. 다시 시도해주세요.");
+>>>>>>> d2817acb738ae406a642112c3a0d77a6b74a3bb0
 		}
 	}
 
@@ -267,10 +299,10 @@ public class Library {
 	public void displayBookOnLone() { // 대출 중인 책 전시
 		Book book;
 		this.iBook = books.iterator();
-		while (!this.iBook.hasNext()) {
+		while (this.iBook.hasNext()) {
 			book = this.iBook.next();
-			if (book.loanStatus()) {
-				System.out.println(book.search() + "\n" + book.getCNumber());
+			if (!book.loanStatus()) {
+				System.out.println("\n" + book.search() + "\n" + book.getCNumber());
 			}
 		}
 	}
@@ -281,7 +313,7 @@ public class Library {
 		while (this.iBook.hasNext()) {
 			book = this.iBook.next();
 			if (book.loanStatus()) {
-				System.out.println(book.search() + "\n" + book.getCNumber());
+				System.out.println("\n" + book.search() + "\n" + book.getCNumber());
 			}
 		}
 	}
