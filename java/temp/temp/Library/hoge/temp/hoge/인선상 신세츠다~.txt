@@ -1,0 +1,107 @@
+public static void main(String[] args)
+	환영합니다,  + library.getName() + 입니다.
+	Welcome, to the library of  + library.getName()
+
+	원하시는 서비스를 선택해주세요.
+	Select the service you want.
+
+	0: 책 등록                 
+	0: Register a book                 
+	1: 이용자 등록
+	1: Register a borrower
+	2: 책 대출
+	2: Book loan
+	3: 책 반납
+	3: Return book
+	4: 대출 중인 책 전시
+	4: Display book for lone
+	5: 대출 가능한 책 전시
+	5: Display book on lone
+	6: 로그아웃
+	6: Logout
+	
+	계속 검색하시겠습니까? (Yes/No : 대소문자를 구분합니다.)
+	Do you want to continue searching? (Yes/No : Case sensitive)
+	
+public void signUpBook(Scanner input)
+	등록하시는 책의 분류번호,제목과 저자를 입력해주세요.
+	Please enter the category number, title or author of the book you are registering.
+
+	0.기타
+	0.Other
+	1.철학 
+	1.Philosophy
+	2.역사 
+	2. History
+	3.사회과학 
+	3. Social Sciences
+	4.자연과학 
+	4. Natural Science
+	5.기술 
+	5.Technology
+	6.산업 
+	6. Industry
+	7.예술 
+	7.Art
+	8.언어 
+	8.Language
+	9.문학
+	9.Literature
+	
+	책의 종류를 입력해주세요.(숫자)
+	Please enter the type of book.(Number)
+
+	책의 제목을 입력해주세요.
+	Please enter the title of the book.
+	
+	책의 저자를 입력해주세요.
+	Please enter the author of the book.
+
+	등록하시려는 이용자의 성함을 입력해주세요.
+	Please enter the borrower's name to register.
+
+	이미 등록되어 있는 이름입니다.
+	Sorry, name already registered.
+
+	성공적으로 등록되었습니다.
+	Successfully registered.
+	
+
+public void searchBook(Scanner input)
+	찾으시려는 책의 카테고리 번호, 제목, 저자 중에 하나를 입력해주세요.
+	Please enter the category number, title, or author of the book you are looking for.
+
+	결과가 없습니다.
+	No results.
+
+	ID를 입력해주세요.만약 guest이시면 검색이외에 서비스는 이용하실수 없습니다.
+	Please enter your ID.If you are a guest, you cannot use the service except for search.
+	
+	시스템을 종료합니다.
+	Shut down the system.
+
+	올바른 ID를 입력해주세요.
+	Please enter a valid ID.
+
+public void borrowBook(Scanner input)
+	대출하시고자 하는 이용자의 이름을 입력해주세요
+	Please enter the name of the borrower you wish to borrow.
+
+	대출할 책의 고유번호를 입력해주세요.
+	Please enter the category number of the book you want to check out.
+
+	대출이 성공적으로 완료되었습니다.
+	The loan is successful.
+
+	대출에 실패하였습니다. 다시 시도해주세요.
+	Failed to check out. Please try again
+
+public void returnBook(Scanner input)
+	반납할 책의 고유번호를 입력해주세요.
+	Please enter the category number of the book to return.
+
+	반납이 완료되었습니다.
+	Return completed.
+
+	반납에 실패하였습니다. 다시 시도해주세요.
+	Failed to return. Please try again.
