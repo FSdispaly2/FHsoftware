@@ -1,3 +1,12 @@
+/**
+ * 
+ * 도서관 관리 시스템에 등록되어있는 가상의 책 
+ * (학번 이름)2017315022 주인선, 2017315024 임윤지, 
+ *          2017315049 다카타 이쿠오, 2017315055 에다 카츠토시
+ * 2018/12/07
+ * 
+ */
+
 import java.util.Comparator;
 
 public class Book implements Comparator<Book> {

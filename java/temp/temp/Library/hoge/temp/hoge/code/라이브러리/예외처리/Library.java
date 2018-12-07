@@ -1,3 +1,11 @@
+/**
+ * 
+ * 도서관 관리 시스템
+ * (학번 이름)2017315022 주인선, 2017315024 임윤지, 
+ *          2017315049 다카타 이쿠오, 2017315055 에다 카츠토시
+ * 2018/12/07
+ * 
+ */
 
 import java.util.*;
 
@@ -19,24 +27,24 @@ public class Library {
 		int cNumber;
 		for (int i = 0; i < 3; i++) {
 			bookName = "English";
-			author = "Tom";
+			author = "Rowling";
 			cNumber = this.makeCNumber(bookName, author, 8);
 			book = new Book(bookName, author, cNumber);
 			this.books.add(book);
-			bookName = "Japanese";
+			bookName = "日本語";
 			author = "翔";
 			cNumber = this.makeCNumber(bookName, author, 8);
 			book = new Book(bookName, author, cNumber);
 			this.books.add(book);
-			bookName = "Korean";
-			author = "유관순";
+			bookName = "한국어";
+			author = "박완서";
 			cNumber = this.makeCNumber(bookName, author, 8);
 			book = new Book(bookName, author, cNumber);
 			this.books.add(book);
 		}
-		Borrower borrower = new Borrower("홍길동");
+		Borrower borrower = new Borrower("김철수");
 		this.borrowers.add(borrower);
-		this.librarians.add("김요미");
+		this.librarians.add("김영희");
 	}
 
 	public static void main(String[] args) {
@@ -45,12 +53,13 @@ public class Library {
 		while (true) {
 			System.out.println("환영합니다,  " + library.getName() + "입니다.");
 			int ID = library.login(input);
-			int choices = 10;
+			int choices;
 			boolean exit;
 			boolean systemCall = false;
 			switch (ID) {
 			case 0:
 				while (true) {
+					choices = 10;
 					exit = false;
 					System.out.println("원하시는 서비스를 선택해주세요.");
 					System.out.println(
@@ -103,9 +112,15 @@ public class Library {
 					System.out.println("계속 검색하시겠습니까? (Yes/No : 대소문자를 구분합니다.)");
 					String continueSearch = input.nextLine();
 					if (continueSearch.equals("No")) {
+						System.out.println("서비스를 이용해주셔서 감사합니다.");
 						break;
 					} else if (continueSearch.equals("Yes")) {
 						continue;
+
+					} else {
+						System.out.println("Yes/No로 입력해주세요.");
+						System.out.println("로그인 화면으로 돌아갑니다.");
+						break;
 					}
 				}
 				break;
@@ -151,6 +166,7 @@ public class Library {
 		cNumber = this.makeCNumber(bookName, author, cNumber);
 		Book book = new Book(bookName, author, cNumber);
 		this.books.add(book);
+		System.out.println("성공적으로 책이 등록 되었습니다.");
 	}
 
 	public void signUpBorrower(Scanner input) {
@@ -179,7 +195,7 @@ public class Library {
 		int count = 0;
 		while (this.iBook.hasNext()) {
 			Book b = this.iBook.next();
-			if (b.getCNumber() == cNumber) {
+			if (b.getCNumber() / 100 == cNumber / 100) {
 				count++;
 			}
 		}
@@ -197,7 +213,9 @@ public class Library {
 
 	public void searchBook(Scanner input) {
 		Book book;
-		System.out.println("찾으시려는 책의 카테고리 번호, 제목, 저자 중에 하나를 입력해주세요.");
+		System.out.println("(분류번호)");
+		System.out.println("0.기타 1.철학 2.역사 3.사회과학 4.자연과학 5.기술 6.산업 7.예술 8.언어 9.문학");
+		System.out.println("찾으시려는 책의 분류 번호, 제목, 저자 중에 하나를 입력해주세요.");
 		String temp = input.nextLine();
 		this.iBook = books.iterator();
 		boolean check = true;
@@ -222,6 +240,7 @@ public class Library {
 
 	public int login(Scanner input) {
 		System.out.println("ID를 입력해주세요.만약 guest이시면 검색이외에 서비스는 이용하실수 없습니다.");
+		System.out.println("exit을 입력하면 종료합니다.");
 		String ID = input.nextLine();
 		this.iLibrarian = librarians.iterator();
 		while (this.iLibrarian.hasNext()) {
@@ -235,7 +254,7 @@ public class Library {
 			System.out.println(ID + "(이용자)님, 환영합니다.");
 			return 1;
 		} else if (ID.equals("exit")) {
-			System.out.println("시스템을 종료합니다.");
+			System.out.println("시스템을 종료합니다. 이용해 주셔서 감사합니다.");
 			return 2;
 		} else {
 			System.out.println("올바른 ID를 입력해주세요.");
@@ -252,6 +271,7 @@ public class Library {
 		while (this.iBorrower.hasNext()) {
 			Borrower x = this.iBorrower.next();
 			if (x.getName().equals(borrowerName)) {
+				System.out.println(x.getName() + "님은 책을 " + (3 - x.getCount()) + "권을 대출 하실 수 있습니다.");
 				System.out.println("대출할 책의 고유번호를 입력해주세요.");
 				int cNumber = 0;
 				try {
